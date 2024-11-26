@@ -1,4 +1,4 @@
-package Steps;
+package Steps.UISteps;
 
 import UIPages.LoginPage;
 import io.cucumber.java.en.*;
