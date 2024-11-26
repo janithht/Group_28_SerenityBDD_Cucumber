@@ -6,7 +6,6 @@ import net.serenitybdd.annotations.Steps;
 
 public class LoginPageSteps {
 
-    @Steps
     private LoginPage loginPage;
 
     @Given("User is on the login page")
