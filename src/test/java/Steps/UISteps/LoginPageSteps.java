@@ -2,9 +2,11 @@ package Steps.UISteps;
 
 import UIPages.LoginPage;
 import io.cucumber.java.en.*;
+import net.serenitybdd.annotations.Steps;
 
 public class LoginPageSteps {
 
+    @Steps
     private LoginPage loginPage;
 
     @Given("User is on the login page")
