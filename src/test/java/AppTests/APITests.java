@@ -10,5 +10,7 @@ import org.junit.runner.RunWith;
         glue = "Steps",
         plugin = {"pretty"}
 )
-public class APITests {}
+public class APITests {
+
+}
 

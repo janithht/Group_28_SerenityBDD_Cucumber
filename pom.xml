@@ -54,12 +54,6 @@
             <version>7.20.1</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/net.serenity-bdd/serenity-screenplay -->
-        <dependency>
-            <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-screenplay</artifactId>
-            <version>4.2.8</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/net.serenity-bdd/serenity-rest-assured -->
         <dependency>
             <groupId>net.serenity-bdd</groupId>
@@ -72,12 +66,6 @@
             <artifactId>serenity-ensure</artifactId>
             <version>4.2.8</version>
             <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/net.serenity-bdd/serenity-screenplay-webdriver -->
-        <dependency>
-            <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-screenplay-webdriver</artifactId>
-            <version>4.2.8</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
