@@ -29,3 +29,13 @@ Feature: Create a new book
         Examples:
           | title                   | author             |
           | "To Kill a Mockingbird"       | "Harper Lee" |
+
+    Scenario: User attempt to create a book with an existing title
+        Given User is authorized as a regular user
+        When User creates a new book with title <title> and author <author>
+        Then application should return status code 208 for already reported operation
+        And the response message should be "Book Already Exists"
+
+        Examples:
+          | title                   | author             |
+          | "To Kill a Mockingbird" | "Harper Lee"       |
