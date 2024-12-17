@@ -73,4 +73,15 @@ public class PostAPISteps {
         assertThat(createdTitle, equalTo(bookTitle));
         assertThat(createdAuthor, equalTo(bookAuthor));
     }
+    // New steps for the duplicate book scenario
+    @Then("application should return status code 208 for already reported operation")
+    public void application_should_return_status_code_208_for_already_reported_operation() {
+        assertThat(response.getStatusCode(), is(equalTo(208)));
+    }
+
+    @And("the response message should be {string}")
+    public void the_response_message_should_be(String expectedMessage) {
+        String actualMessage = response.getBody().asString();
+        assertThat(actualMessage, is(equalTo(expectedMessage)));
+    }
 }
