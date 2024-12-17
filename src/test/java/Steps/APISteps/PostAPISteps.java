@@ -20,28 +20,51 @@ public class PostAPISteps {
         SerenityRest.given().auth().preemptive().basic("admin", "password");
     }
 
+    @Given("User is authorized as a regular user")
+    public void user_is_authorized_as_a_regular_user() {
+        SerenityRest.reset();
+        SerenityRest.given().auth().preemptive().basic("user", "password");
+    }
+
     @When("User creates a new book with title {string} and author {string}")
     public void user_creates_a_new_book_with_title_and_author(String title, String author) {
         this.bookTitle = title;
         this.bookAuthor = author;
+
         String requestBody = String.format("{\"title\": \"%s\", \"author\": \"%s\"}", title, author);
+
         response = SerenityRest.given()
-                .auth().preemptive().basic("admin", "password")
+                .auth().preemptive().basic("admin", "password") // Admin authorization
                 .contentType("application/json")
                 .body(requestBody)
-                .when().post("http://localhost:7081/api/books/");
-
-        response.then().statusCode(201); // Assert status code 201
+                .when().post(POST_ENDPOINT);
     }
+
+    @When("User submits a POST request to create a book with title {string} and author {string}")
+    public void user_submits_a_post_request_to_create_a_book_with_title_and_author(String title, String author) {
+        this.bookTitle = title;
+        this.bookAuthor = author;
+
+        String requestBody = String.format("{\"title\": \"%s\", \"author\": \"%s\"}", title, author);
+
+        response = SerenityRest.given()
+                .auth().preemptive().basic("user", "password") // Regular user authorization
+                .contentType("application/json")
+                .body(requestBody)
+                .when().post(POST_ENDPOINT);
+    }
+
     @Then("application should return status code 201 for create operation")
     public void application_should_return_status_code_201_for_create_operation() {
         assertThat(response.getStatusCode(), is(equalTo(201)));
     }
+
     @And("the response should include the book ID")
     public void the_response_should_include_the_book_id() {
         Integer bookId = response.jsonPath().getInt("id");
         assertThat(bookId, is(notNullValue()));
     }
+
     @And("the book details should match the input title and author")
     public void the_book_details_should_match_the_input_title_and_author() {
         String createdTitle = response.jsonPath().getString("title");
