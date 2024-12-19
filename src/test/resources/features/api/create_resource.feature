@@ -39,3 +39,13 @@ Feature: Create a new book
         Examples:
           | title                   | author             |
           | "To Kill a Mockingbird" | "Harper Lee"       |
+
+    Scenario: User attempts to create a book without a title
+        Given User is authorized as a regular user
+        When User creates a new book without a title and with author <author>
+        Then the application should return status code 400 for bad request
+        And the response message should be "Title is a mandatory field"
+
+        Examples:
+          | author       |
+          | "F. Scott Fitzgerald" |
