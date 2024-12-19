@@ -74,7 +74,6 @@ public class PostAPISteps {
         assertThat(createdTitle, equalTo(bookTitle));
         assertThat(createdAuthor, equalTo(bookAuthor));
     }
-    // New steps for the duplicate book scenario
     @Then("application should return status code 208 for already reported operation")
     public void application_should_return_status_code_208_for_already_reported_operation() {
         assertThat(response.getStatusCode(), is(equalTo(208)));
@@ -85,18 +84,7 @@ public class PostAPISteps {
         String actualMessage = response.getBody().asString();
         assertThat(actualMessage, is(equalTo(expectedMessage)));
     }
-//    @When("User creates a new book without a title and with author {string}")
-//    public void createBookWithoutTitle(String author) {
-//        String payload = String.format("{\"author\": \"%s\"}", author);
-//        response = given()
-//                .contentType("application/json")
-//                .body(payload)
-//                .when().post(POST_ENDPOINT);
-//    }
-//    @Then("the application should return status code {int} for bad request")
-//    public void validateBadRequestStatusCode(int statusCode) {
-//        response.then().statusCode(statusCode);
-//    }
+
     @When("User creates a new book without a title and with author {string}")
     public void user_creates_a_new_book_without_a_title_and_with_author(String author) {
         String payload = String.format("{\"author\": \"%s\"}", author);
@@ -111,15 +99,14 @@ public class PostAPISteps {
         assertThat(response.getStatusCode(), is(equalTo(400)));
     }
 
-//    @Then("the application should return status code {int} for bad request")
-//    public void the_application_should_return_status_code(int statusCode) {
-//        // Validate the status code
-//        response.then().statusCode(statusCode);
-//    }
+    @When("User creates a new book with a title {string} and without an author")
+    public void user_creates_a_new_book_with_a_title_and_without_author(String title) {
+        String payload = String.format("{\"title\": \"%s\"}", title);
+        response = given()
+                .auth().preemptive().basic("user", "password")
+                .contentType("application/json")
+                .body(payload)
+                .when().post(POST_ENDPOINT);
+    }
 
-//    @And("the response message should be {string}")
-//    public void the_response_message_should_be(String expectedMessage) {
-//        // Validate the response message
-//        response.then().body("message", equalTo(expectedMessage));
-//    }
 }
