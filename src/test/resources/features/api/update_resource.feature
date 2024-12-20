@@ -26,7 +26,7 @@ Feature: Book update
   Scenario: Update Without Required Fields
     Given User is authorized as an admin
     And a book exists with Id 1
-    When User send a PUT request missing the title and author fields
+    When User send a PUT request missing the author field
     Then the response status should be 400
     And the response should include a message that Mandatory parameters should not be null
 

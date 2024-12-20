@@ -1,4 +1,4 @@
-package Steps.UIStepDefinitions;
+package Steps.UISteps;
 
 import io.cucumber.java.Before;
 import net.serenitybdd.annotations.Steps;

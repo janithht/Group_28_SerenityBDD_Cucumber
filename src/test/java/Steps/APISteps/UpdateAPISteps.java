@@ -40,7 +40,7 @@ public class UpdateAPISteps {
 
     @When("User send a PUT request with invalid data including string in a integer field")
     public void user_send_put_request_with_invalid_data() {
-        String requestBody = "{\"id\": \"2\", \"pages\": \"invalid\"}";
+        String requestBody = "{\"id\": \"2\", \"title\": \"Don Quixote\", \"author\": \"Miguel de Cervantes\"}";
         response = SerenityRest.given()
                 .auth().preemptive().basic("admin", "password")
                 .contentType("application/json")
@@ -50,7 +50,7 @@ public class UpdateAPISteps {
 
     @When("User send a PUT request with valid update data")
     public void user_send_put_request_with_valid_update_data() {
-        String requestBody = "{\"id\": 101, \"title\": \"New Title\", \"author\": \"New Author\"}";
+        String requestBody = "{\"id\": 101, \"title\": \"Treasure Island\", \"author\": \"Robert Louis Stevenson\"}";
         response = SerenityRest.given()
                 .auth().preemptive().basic("admin", "password")
                 .contentType("application/json")
@@ -58,14 +58,14 @@ public class UpdateAPISteps {
                 .when().put(UPDATE_ENDPOINT + "101");
     }
 
-    @When("User send a PUT request missing the title and author fields")
+    @When("User send a PUT request missing the author field")
     public void user_send_put_request_missing_the_title_and_author_fields() {
-        String requestBody = "{\"id\": 1}";
+        String requestBody = "{\"id\": 2, \"title\": \"Don Quixote updated title\"}";
         response = SerenityRest.given()
                 .auth().preemptive().basic("admin", "password")
                 .contentType("application/json")
                 .body(requestBody)
-                .when().put(UPDATE_ENDPOINT + "1");
+                .when().put(UPDATE_ENDPOINT + "2");
     }
 
     @When("User send a PUT request without proper authentication credentials")
