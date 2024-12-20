@@ -6,6 +6,7 @@ import net.serenitybdd.rest.SerenityRest;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.hamcrest.core.StringContains.containsString;
 
 public class GetAPISteps {
     private static final String GET_ALL_ENDPOINT = "http://localhost:7081/api/books";
@@ -45,6 +46,14 @@ public class GetAPISteps {
                 .when().get(GET_ENDPOINT+ bookId);
     }
 
+    @When("the regular user sends a GET request with ID {int}")
+    public void the_regular_user_sends_a_get_request_with_book_ID(Integer bookId) {
+        response = SerenityRest.given()
+                .auth().preemptive().basic("user", "password")
+                .when().get(GET_ENDPOINT+ bookId);
+    }
+
+
     @Then("the status of the response should be {int}")
     public void the_status_of_the_response_should_be(Integer statusCode) {
         assertThat(response.statusCode(), is(equalTo(statusCode)));
@@ -74,5 +83,9 @@ public class GetAPISteps {
         response.then().body("author", equalTo("George Orwell"));
     }
 
+    @And("the response should contain an error message \"Book not found\" for the book with Id {int}")
+    public void the_response_should_contain_an_error_message_for_the_book_with_Id(Integer bookId) {
+        assertThat(response.body().asString(), containsString("Book not found"));
+    }
 
 }
