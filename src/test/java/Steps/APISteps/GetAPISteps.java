@@ -17,9 +17,21 @@ public class GetAPISteps {
         SerenityRest.given().auth().preemptive().basic("admin", "password");
     }
 
+    @Given("User is authorized as a regular user to get books")
+    public void user_is_authorized_to_get_all_books_as_a_regular_user() {
+        SerenityRest.reset();
+        SerenityRest.given().auth().preemptive().basic("user", "password");
+    }
 
-    @When("the admin user sends a GET request")
-    public void the_admin_user_sends_a_get_request_to_api_books() {
+    @When("the regular user sends a GET all books request")
+    public void the_regular_user_sends_a_get_all_books_request() {
+        response = SerenityRest.given()
+                .auth().preemptive().basic("user", "password")
+                .when().get(GET_ENDPOINT);
+    }
+
+    @When("the admin user sends a GET all books request")
+    public void the_admin_user_sends_a_get_all_books_request() {
         response = SerenityRest.given()
                 .auth().preemptive().basic("admin", "password")
                 .when().get(GET_ENDPOINT);
