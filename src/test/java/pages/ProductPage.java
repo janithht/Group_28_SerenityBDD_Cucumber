@@ -2,18 +2,72 @@ package pages;
 
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.concurrent.TimeUnit;
 
 public class ProductPage extends PageObject {
 
-    // Locators
+    // Locators for Add to cart
     private final By PRODUCT_NAME = By.xpath("//a[@title='Radiant Tee']");
     private final By SIZE = By.xpath("//div[@id='option-label-size-143-item-167']");
     private final By COLOR = By.xpath("//div[@id='option-label-color-93-item-50']");
     private final By QUANTITY = By.xpath("//input[@name='qty']");
     private final By ADD_TO_CART = By.xpath("//button[@title='Add to Cart']");
-    private final By SUCCESS_MESSAGE = By.xpath("//div[contains(@class, 'message-success')]/div"); // Updated to reflect inline success message
+    private final By SUCCESS_MESSAGE = By.xpath("//div[contains(@class, 'message-success')]/div");// Updated to reflect inline success message
+
+    // Locators for Add Review
+    private final By REVIEW_TAB = By.xpath("//a[contains(@href,'#reviews')]");
+    private final By REVIEW_FIELD = By.id("review_field");
+    private final By SUMMARY_FIELD = By.id("summary_field");
+    private final By NICKNAME_FIELD = By.id("nickname_field");
+    private final By RATING_STARS = By.xpath("//input[@type='radio' and contains(@name, 'ratings')]");
+    private final By SUBMIT_REVIEW_BUTTON = By.xpath("//div[contains(@class, 'review-add')]//button");
+    private final By SUCCESS_REVIEW_MESSAGE = By.cssSelector(".message-success div");
+    private final By REVIEWS = By.cssSelector(".review-items");
+
+    //Locators for
     private final By CART_ICON = By.cssSelector(".minicart-wrapper"); // Cart icon locator
     private final By CART_PRODUCT_NAME = By.cssSelector(".product-item-name"); // Product name in cart
+
+    // Add Review Methods
+    public void navigateToReviewTab() {
+        $(REVIEW_TAB).waitUntilClickable().click();
+    }
+
+    public void fillReviewForm(String review, String summary, String nickname, int rating) {
+
+        // Construct XPath to match the radio button with the given rating value
+        String ratingXPath = String.format("//input[@type='radio' and @name='ratings[4]' and @id='Rating_%d']", rating);
+
+        // Scroll to the element and click it using JavaScript
+        WebElement ratingElement = $(By.xpath(ratingXPath)).waitUntilVisible();
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", ratingElement);
+
+        $(REVIEW_FIELD).clear();
+        $(REVIEW_FIELD).type(review);
+
+        $(SUMMARY_FIELD).clear();
+        $(SUMMARY_FIELD).type(summary);
+
+        $(NICKNAME_FIELD).clear();
+        $(NICKNAME_FIELD).type(nickname);
+    }
+
+    public void submitReview() {
+        $(SUBMIT_REVIEW_BUTTON).withTimeoutOf(5, TimeUnit.SECONDS).waitUntilClickable().click();
+    }
+
+    public boolean isReviewSuccessMessageDisplayed(String expectedMessage) {
+        return $(SUCCESS_REVIEW_MESSAGE).withTimeoutOf(5, TimeUnit.SECONDS).containsText(expectedMessage);
+    }
+
+    public boolean isReviewVisibleAmongReviews(String review) {
+        navigateToReviewTab();
+        return findAll(REVIEWS).stream().anyMatch(element -> element.getText().toLowerCase().contains(review.toLowerCase()));
+    }
 
     /**
      * Selects size for the product.
@@ -51,8 +105,8 @@ public class ProductPage extends PageObject {
      *
      * @return true if the success message is displayed, false otherwise.
      */
-    public boolean isAddToCartSuccessMessageDisplayed() {
-        return $(SUCCESS_MESSAGE).containsText("You added Radiant Tee to your shopping cart.");
+    public boolean isAddToCartSuccessMessageDisplayed(String expectedMessage) {
+        return $(SUCCESS_MESSAGE).withTimeoutOf(5, TimeUnit.SECONDS).containsText(expectedMessage);
     }
 
     /**
@@ -70,6 +124,6 @@ public class ProductPage extends PageObject {
      * @return true if the product is in the cart, false otherwise.
      */
     public boolean isProductInCart(String productName) {
-        return $(CART_PRODUCT_NAME).getText().contains(productName);
+        return findAll(CART_PRODUCT_NAME).stream().anyMatch(element -> element.getText().toLowerCase().contains(productName.toLowerCase()));
     }
 }
