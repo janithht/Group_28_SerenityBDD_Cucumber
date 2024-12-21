@@ -19,13 +19,13 @@ public class AddToCartStepDefinitions {
 
     @When("I select size {string}")
     public void iSelectSize(String size) {
-        // Select the size for the product (hardcoded to match a locator for simplicity)
+        // Select the size for the product
         productPage.selectSize();
     }
 
     @When("I select color {string}")
     public void iSelectColor(String color) {
-        // Select the color for the product (hardcoded to match a locator for simplicity)
+        // Select the color for the product
         productPage.selectColor();
     }
 
