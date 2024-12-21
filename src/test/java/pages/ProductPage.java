@@ -52,7 +52,7 @@ public class ProductPage extends PageObject {
      * @return true if the success message is displayed, false otherwise.
      */
     public boolean isAddToCartSuccessMessageDisplayed() {
-        return $(SUCCESS_MESSAGE).containsText("You added Radiant Tee to your ");
+        return $(SUCCESS_MESSAGE).containsText("You added Radiant Tee to your shopping cart.");
     }
 
     /**
