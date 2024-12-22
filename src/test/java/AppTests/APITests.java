@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features/api",
         glue = "Steps/APISteps",
+        tags = "@APITests",
         plugin = {"pretty"}
 )
 public class APITests {
