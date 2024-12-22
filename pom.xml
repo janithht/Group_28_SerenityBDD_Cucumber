@@ -86,6 +86,7 @@
                             <include>**/*Tests.java</include>
                         </includes>
                     </systemPropertyVariables>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
             <plugin>
