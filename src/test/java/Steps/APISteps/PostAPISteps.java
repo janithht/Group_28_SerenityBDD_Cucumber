@@ -94,6 +94,7 @@ public class PostAPISteps {
                 .body(payload)
                 .when().post(POST_ENDPOINT);
     }
+
     @Then("the application should return status code 400 for bad request")
     public void the_application_should_return_status_code_400() {
         assertThat(response.getStatusCode(), is(equalTo(400)));

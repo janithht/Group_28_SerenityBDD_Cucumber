@@ -48,4 +48,4 @@ Feature: Create a new book
 
             Examples:
               | title       |
-              | "Pride and Prejudice" |
+              | "The Catcher in the Rye" |
