@@ -1,3 +1,4 @@
+@UITests
 Feature: Submit feedback on a product
   As a user
   I want to submit a review on a product
