@@ -1,3 +1,4 @@
+@APITests
 Feature: Create a new book
 
     Scenario: Successfully create a new book as an admin
