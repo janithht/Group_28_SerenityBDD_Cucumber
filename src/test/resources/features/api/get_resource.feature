@@ -1,3 +1,4 @@
+@APITests
 Feature: Get all books
 
   Scenario: Successfully get all books details as an admin

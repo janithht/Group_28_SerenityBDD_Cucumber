@@ -1,3 +1,4 @@
+@APITests
 Feature: Book update
 
   Scenario: Successfully update a book details
