@@ -44,7 +44,7 @@ public class AddToCartStepDefinitions {
     @Then("I should see the success message {string} on the product page")
     public void iShouldSeeTheSuccessMessageOnTheProductPage(String expectedMessage) {
         // Verify the success message is displayed on the product page
-        assertTrue( productPage.isAddToCartSuccessMessageDisplayed(expectedMessage));
+        assertTrue("No success message appeared", productPage.isAddToCartSuccessMessageDisplayed(expectedMessage));
     }
 
     @Then("the cart should display the product {string}")

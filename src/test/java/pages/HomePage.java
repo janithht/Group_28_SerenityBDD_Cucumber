@@ -3,7 +3,9 @@ package pages;
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class HomePage extends PageObject {
@@ -28,8 +30,9 @@ public class HomePage extends PageObject {
     }
 
     public boolean isProductListDisplayed() {
-        waitForCondition().until(driver -> !findAll(PRODUCT_RESULTS).isEmpty());
-        return $(PRODUCT_RESULTS).isVisible();
+        List<WebElement> products = getDriver().findElements(PRODUCT_RESULTS);
+        System.out.println("Products found: " + products.size());
+        return !products.isEmpty();
     }
 
     public boolean isProductListContainProductName(String productName) {
