@@ -1,3 +1,4 @@
+@UITests
 Feature: Add to cart functionality
 
   Scenario: Add a product to the cart and verify
