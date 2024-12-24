@@ -14,14 +14,14 @@ Feature: Book update
 
   Scenario: Update Non-existent Book
     Given User is authorized as an admin
-    When User send a PUT request with valid update data
+    When User sends a PUT request with valid update data
     Then the response status should be 404
     And the response body should contain "Book not found"
 
   Scenario: Update Without Required Fields
     Given User is authorized as an admin
     And a book exists with Id 1
-    When User send a PUT request missing the author field
+    When User sends a PUT request missing the author field
     Then the response status should be 400
     And the response body should contain "Mandatory parameters should not be null"
 
@@ -34,5 +34,5 @@ Feature: Book update
   Scenario: Update with Invalid Data
     Given User is authorized as an admin
     And a book exists with Id 1
-    When User send a PUT request with invalid data including string in a integer field
+    When User sends a PUT request with invalid data including string in an integer field
     Then the response status should be 400
