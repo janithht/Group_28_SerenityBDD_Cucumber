@@ -12,12 +12,6 @@ Feature: Book update
       | bookId | title            | author       |
       | 1      | "New Adventures"   | "Mark Twain"   |
 
-  Scenario: Update with Invalid Data
-    Given User is authorized as an admin
-    And a book exists with Id 1
-    When User send a PUT request with invalid data including string in a integer field
-    Then the response status should be 400
-
   Scenario: Update Non-existent Book
     Given User is authorized as an admin
     When User send a PUT request with valid update data
@@ -36,3 +30,9 @@ Feature: Book update
     And a book exists with Id 1
     But the user sends a PUT request to update the book with ID 1 without proper authentication credentials
     Then the response status should be 401
+
+  Scenario: Update with Invalid Data
+    Given User is authorized as an admin
+    And a book exists with Id 1
+    When User send a PUT request with invalid data including string in a integer field
+    Then the response status should be 400
