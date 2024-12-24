@@ -1,5 +1,6 @@
 Feature: Add to cart functionality
 
+  @RequiresLogin
   Scenario: Add a product to the cart and verify
     Given I am viewing the product "Radiant Tee"
     When I select size "M"

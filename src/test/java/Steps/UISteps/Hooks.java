@@ -11,16 +11,12 @@ public class Hooks {
     @Steps
     LoginPage loginPage;
 
-    private static boolean isLoggedIn = false;
-
-    @Before // Ensure this runs before other hooks or scenarios
+    @Before("@RequiresLogin") // Ensure this runs before other hooks or scenarios
     public void setUpDefaultLogin() {
         // Open the login page
         loginPage.openAt("/customer/account/login");
 
         // Perform login with default test credentials
         loginPage.login("ym@gmail.com", "Ymeka2000");
-
-        isLoggedIn = true; // Mark as logged in
     }
 }

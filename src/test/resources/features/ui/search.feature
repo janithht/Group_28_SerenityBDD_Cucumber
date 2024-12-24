@@ -1,4 +1,5 @@
 Feature: Search functionality
+
   Scenario: Search with valid product name
     Given I am on the Magento homepage
     When I search "jacket" in the search bar
