@@ -101,20 +101,15 @@ public class UpdateAPISteps {
         assertThat(updatedAuthor, is(equalTo("Mark Twain")));
     }
 
-    @And("the response should indicate that the book with ID {int} not found")
-    public void the_response_should_indicate_that_the_book_with_id_does_not_exist(Integer bookId) {
-        assertThat(response.body().asString(), containsString("not found"));
+    @And("the response body should contain \"Book not found\"")
+    public void the_response_should_indicate_that_the_book_with_id_does_not_exist() {
+        assertThat(response.body().asString(), containsString("Book not found"));
     }
 
 
-    @And("the response should include a message that Mandatory parameters should not be null")
+    @And("the response body should contain \"Mandatory parameters should not be null\"")
     public void the_response_should_include_a_message_that_required_fields_are_missing() {
         assertThat(response.body().asString(), containsString("Mandatory parameters should not be null"));
-    }
-
-    @And("the response should state that authentication is required")
-    public void the_response_should_state_that_authentication_is_required() {
-        assertThat(response.body().asString(), containsString("Authentication is required"));
     }
 
 }
