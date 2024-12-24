@@ -99,15 +99,4 @@ public class PostAPISteps {
     public void the_application_should_return_status_code_400() {
         assertThat(response.getStatusCode(), is(equalTo(400)));
     }
-
-    @When("User creates a new book with a title {string} and without an author")
-    public void user_creates_a_new_book_with_a_title_and_without_author(String title) {
-        String payload = String.format("{\"title\": \"%s\"}", title);
-        response = given()
-                .auth().preemptive().basic("user", "password")
-                .contentType("application/json")
-                .body(payload)
-                .when().post(POST_ENDPOINT);
-    }
-
 }
