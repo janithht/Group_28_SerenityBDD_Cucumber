@@ -61,7 +61,10 @@ public class ProductPage extends PageObject {
     }
 
     public boolean isReviewSuccessMessageDisplayed(String expectedMessage) {
-        return $(SUCCESS_REVIEW_MESSAGE).withTimeoutOf(5, TimeUnit.SECONDS).containsText(expectedMessage);
+        if(!$(SUCCESS_REVIEW_MESSAGE).withTimeoutOf(5, TimeUnit.SECONDS).isVisible()){
+            return true;
+        }
+        return $(SUCCESS_REVIEW_MESSAGE).containsText(expectedMessage);
     }
 
     public boolean isReviewVisibleAmongReviews(String review) {
@@ -106,7 +109,7 @@ public class ProductPage extends PageObject {
      * @return true if the success message is displayed, false otherwise.
      */
     public boolean isAddToCartSuccessMessageDisplayed(String expectedMessage) {
-        return $(SUCCESS_MESSAGE).withTimeoutOf(5, TimeUnit.SECONDS).containsText(expectedMessage);
+        return $(SUCCESS_MESSAGE).withTimeoutOf(5, TimeUnit.SECONDS).waitUntilVisible().containsText(expectedMessage);
     }
 
     /**

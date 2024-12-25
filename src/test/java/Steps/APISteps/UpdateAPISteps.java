@@ -1,5 +1,6 @@
 package Steps.APISteps;
 
+import Steps.api.BookAPI;
 import io.cucumber.java.en.*;
 import io.restassured.response.Response;
 import net.serenitybdd.rest.SerenityRest;
@@ -11,82 +12,48 @@ import static org.hamcrest.core.StringContains.containsString;
 
 public class UpdateAPISteps {
 
-    private static final String UPDATE_ENDPOINT = "http://localhost:7081/api/books/";
+    private final BookAPI bookAPI = new BookAPI();
     private Response response;
 
     @Given("User is authorized as an admin")
     public void user_is_authorized_as_an_admin() {
-        SerenityRest.reset();
-        SerenityRest.given().auth().preemptive().basic("admin", "password");
+        //Handled by Request Factory
     }
 
     @And("a book exists with Id {int}")
     public void a_book_exists_with_id(Integer bookId) {
-        response = SerenityRest.given()
-                .auth().preemptive().basic("admin", "password")
-                .when().get(UPDATE_ENDPOINT + bookId);
-        response.then().statusCode(200);  // Keep the response for later use or checks
+        response = bookAPI.getBookById(bookId);
+        response.then().statusCode(200);
     }
 
     @When("User updates the book with ID {int} setting title to {string}, author to {string}")
     public void user_updates_the_book_with_id_setting_title_to_author_to(Integer bookId, String title, String author) {
-        String requestBody = String.format("{\"id\": %d,\"title\": \"%s\", \"author\": \"%s\"}",bookId, title, author);
-        response = SerenityRest.given()
-                .auth().preemptive().basic("admin", "password")
-                .contentType("application/json")
-                .body(requestBody)
-                .when().put(UPDATE_ENDPOINT + bookId);
+        response = bookAPI.updateBook(bookId, title, author);
     }
 
-    @When("User send a PUT request with invalid data including string in a integer field")
+    @When("User sends a PUT request with invalid data including string in an integer field")
     public void user_send_put_request_with_invalid_data() {
-        String requestBody = "{\"id\": \"2\", \"title\": \"Don Quixote\", \"author\": \"Miguel de Cervantes\"}";
-        response = SerenityRest.given()
-                .auth().preemptive().basic("admin", "password")
-                .contentType("application/json")
-                .body(requestBody)
-                .when().put(UPDATE_ENDPOINT + "2");
+        response = bookAPI.sendInvalidUpdateRequest("2", "Don Quixote", "Miguel de Cervantes");
     }
 
-    @When("User send a PUT request with valid update data")
+    @When("User sends a PUT request with valid update data")
     public void user_send_put_request_with_valid_update_data() {
-        String requestBody = "{\"id\": 101, \"title\": \"Treasure Island\", \"author\": \"Robert Louis Stevenson\"}";
-        response = SerenityRest.given()
-                .auth().preemptive().basic("admin", "password")
-                .contentType("application/json")
-                .body(requestBody)
-                .when().put(UPDATE_ENDPOINT + "101");
+        response = bookAPI.updateBook(101, "Treasure Island", "Robert Louis Stevenson");
     }
 
-    @When("User send a PUT request missing the author field")
-    public void user_send_put_request_missing_the_title_and_author_fields() {
-        String requestBody = "{\"id\": 2, \"title\": \"Don Quixote updated title\"}";
-        response = SerenityRest.given()
-                .auth().preemptive().basic("admin", "password")
-                .contentType("application/json")
-                .body(requestBody)
-                .when().put(UPDATE_ENDPOINT + "2");
+    @When("User sends a PUT request missing the author field")
+    public void user_send_put_request_missing_the_author_field() {
+        response = bookAPI.updateBookMissingAuthor(2, "Don Quixote updated title");
     }
 
-    @When("User send a PUT request without proper authentication credentials")
+    @When("User sends a PUT request without proper authentication credentials")
     public void user_send_put_request_without_proper_authentication_credentials() {
-        SerenityRest.reset(); // Reset to remove authentication
-        String requestBody = "{\"id\": \"1\", \"title\": \"Unauthorized Title\", \"author\": \"Unauthorized Author\"}";
-        response = SerenityRest.given()
-                .auth().preemptive().basic("admin", "password")
-                .contentType("application/json")
-                .body(requestBody)
-                .when().put(UPDATE_ENDPOINT + "1");
+        response = bookAPI.updateWithoutAuthentication(1, "Unauthorized Title", "Unauthorized Author");
     }
 
     @But("the user sends a PUT request to update the book with ID {int} without proper authentication credentials")
     public void the_user_sends_a_put_request_to_update_the_book_without_proper_authentication_credentials(Integer bookId) {
-        SerenityRest.reset();  // This ensures that the authentication is cleared
-        String requestBody = "{\"id\": " + bookId + ", \"title\": \"Unauthorized Update\", \"author\": \"Anonymous\"}";
-        response = SerenityRest.given()
-                .contentType("application/json")
-                .body(requestBody)
-                .when().put(UPDATE_ENDPOINT + bookId);
+        response = bookAPI.updateWithoutAuthentication(bookId, "Unauthorized Update", "Anonymous");
     }
 
     @Then("the response status should be {int}")
@@ -96,25 +63,18 @@ public class UpdateAPISteps {
 
     @And("the book with Id {int} should have updated details")
     public void the_book_with_id_should_have_updated_details(Integer bookId) {
-        Response response = SerenityRest.lastResponse();
+        response = bookAPI.getBookById(bookId);
         String updatedAuthor = response.jsonPath().getString("author");
         assertThat(updatedAuthor, is(equalTo("Mark Twain")));
     }
 
-    @And("the response should indicate that the book with ID {int} not found")
-    public void the_response_should_indicate_that_the_book_with_id_does_not_exist(Integer bookId) {
-        assertThat(response.body().asString(), containsString("not found"));
+    @And("the response body should contain \"Book not found\"")
+    public void the_response_should_indicate_that_the_book_with_id_does_not_exist() {
+        assertThat(response.body().asString(), containsString("Book not found"));
     }
 
-
-    @And("the response should include a message that Mandatory parameters should not be null")
+    @And("the response body should contain \"Mandatory parameters should not be null\"")
     public void the_response_should_include_a_message_that_required_fields_are_missing() {
         assertThat(response.body().asString(), containsString("Mandatory parameters should not be null"));
     }
-
-    @And("the response should state that authentication is required")
-    public void the_response_should_state_that_authentication_is_required() {
-        assertThat(response.body().asString(), containsString("Authentication is required"));
-    }
-
 }
