@@ -25,10 +25,10 @@ public class AddReviewStepDefinitions {
     public void fillReviewForm(io.cucumber.datatable.DataTable dataTable) {
         var data = dataTable.asMap(String.class, String.class);
         productPage.fillReviewForm(
-                data.get("Review"),
-                data.get("Summary of Review"),
-                data.get("Nickname"),
-                Integer.parseInt(data.get("Rating"))
+                data.getOrDefault("Review",""),
+                data.getOrDefault("Summary of Review",""),
+                data.getOrDefault("Nickname",""),
+                Integer.parseInt(data.getOrDefault("Rating","0"))
         );
     }
 
@@ -44,6 +44,12 @@ public class AddReviewStepDefinitions {
 
     @Then("I should see my review : {string} among other reviews")
     public void verifyReviewAmongOtherReviews(String review) {
-        assertTrue("Review is visible in the reviews", productPage.isReviewVisibleAmongReviews(review));
+        assertTrue("Review is not visible among reviews", productPage.isReviewVisibleAmongReviews(review));
     }
+
+    @Then("I should not see a success message saying {string}.")
+    public void verifyNoSuccessMessage(String expectedMessage) {
+        assert productPage.isReviewSuccessMessageDisplayed(expectedMessage) : "Review success message is displayed!, Even with missing values.";
+    }
+
 }

@@ -32,18 +32,18 @@ public class SearchStepDefinitions {
     @Then("I should see a list of products related to {string}")
     public void iShouldSeeAListOfProducts(String productName) {
         // Verify relevant products are displayed.
-        assertTrue("Product results are  displayed", homePage.isProductListDisplayed());
+        assertTrue("Product results are not displayed", homePage.isProductListDisplayed());
     }
 
     @Then("The product names should contain {string}")
     public void iShouldSeeAListOfProductsContainMySearch(String productName) {
         // Verify the product name is displayed on among products
-        assertTrue("Product Results contains the name "+productName, homePage.isProductListContainProductName(productName));
+        assertTrue("Product Results not contains the name "+productName, homePage.isProductListContainProductName(productName));
     }
 
     @Then("I should see a message saying {string}")
     public void iShouldSeeAMessageSaying(String message) {
         // Verify error message is displayed on the page
-        assertTrue("No results message is not displayed", homePage.isNoResultsMessageDisplayed());
+        assertTrue("No results message is  displayed", homePage.isNoResultsMessageDisplayed());
     }
 }
