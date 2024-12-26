@@ -1,5 +1,5 @@
 @APITests
-Feature: Get all books
+Feature: Get books
 
   Scenario: Successfully get all books details as an admin
     Given User is authorized as an admin to get books
