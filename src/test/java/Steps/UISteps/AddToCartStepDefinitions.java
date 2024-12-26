@@ -53,4 +53,29 @@ public class AddToCartStepDefinitions {
         productPage.openCartDropdown();
         assertTrue("Product is not in the cart", productPage.isProductInCart(productName));
     }
+
+    
+    /// ***************************newly added************************************************/////////
+    @Then("I should see an error message {string}")
+    public void i_should_see_an_error_message(String expectedErrorMessage) {
+        // Verify the error message matches the expected text
+        assertTrue("Error message not displayed or incorrect",
+                productPage.isQuantityErrorMessageDisplayed(expectedErrorMessage));
+    }
+    // Add to AddToCartStepDefinitions class
+    @Then("I should see a size selection error message {string}")
+    public void i_should_see_a_size_selection_error_message(String expectedErrorMessage) {
+        // Verify the size selection error message matches the expected text
+        assertTrue("Size selection error message not displayed or incorrect", 
+                productPage.isSizeSelectionErrorMessageDisplayed());
+    }
+
+    @Then("I should see a color selection error message {string}")
+    public void i_should_see_a_color_selection_error_message(String expectedErrorMessage) {
+        // Verify the color selection error message is displayed and matches the expected text
+        assertTrue("Color selection error message not displayed or incorrect",
+                productPage.isColorSelectionErrorMessageDisplayed());
+    }
+
+
 }

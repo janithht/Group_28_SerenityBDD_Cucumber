@@ -1,5 +1,5 @@
 @APITests
-Feature: Get all books
+Feature: Get books
 
   Scenario: Successfully get all books details as an admin
     Given User is authorized as an admin to get books
@@ -31,15 +31,6 @@ Feature: Get all books
           | bookId | title            | author            |
           | 2      | "1984"           | "George Orwell"   |
 
-  Scenario: Bug - failing to get a book details as a regular user
-    Given User is authorized as a regular user to get books
-    When the regular user sends a GET request with ID <bookId>
-    Then the status of the response should be 200
-    And the response should contain a book with Id <bookId>
-
-      Examples:
-          | bookId | title            | author            |
-          | 2      | "1984"           | "George Orwell"   |
 
    Scenario:Admin receives a 404 error when requesting details for a non-existent book
       Given User is authorized as an admin to get books
@@ -50,3 +41,13 @@ Feature: Get all books
         Examples:
             | bookId | title            | author                    |
             | 100    | "Madol Doova"    | "Martin Wickramasinghe"   |
+
+    Scenario: Bug - failing to get a book details as a regular user
+       Given User is authorized as a regular user to get books
+       When the regular user sends a GET request with ID <bookId>
+       Then the status of the response should be 200
+       And the response should contain a book with Id <bookId>
+
+         Examples:
+             | bookId | title            | author            |
+             | 2      | "1984"           | "George Orwell"   |

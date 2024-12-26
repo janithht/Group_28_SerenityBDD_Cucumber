@@ -17,6 +17,10 @@ public class ProductPage extends PageObject {
     private final By QUANTITY = By.xpath("//input[@name='qty']");
     private final By ADD_TO_CART = By.xpath("//button[@title='Add to Cart']");
     private final By SUCCESS_MESSAGE = By.xpath("//div[contains(@class, 'message-success')]/div");// Updated to reflect inline success message
+    /// ***************************newly added************************************************/////////
+    private final By QUANTITY_ERROR = By.id("qty-error");
+    private final By SIZE_SELECTION_ERROR = By.id("super_attribute[143]-error");// Locator for the size selection error message
+    private final By COLOR_SELECTION_ERROR = By.id("super_attribute[93]-error");
 
     // Locators for Add Review
     private final By REVIEW_TAB = By.xpath("//a[contains(@href,'#reviews')]");
@@ -128,5 +132,32 @@ public class ProductPage extends PageObject {
      */
     public boolean isProductInCart(String productName) {
         return findAll(CART_PRODUCT_NAME).stream().anyMatch(element -> element.getText().toLowerCase().contains(productName.toLowerCase()));
+    }
+
+
+/// ***************************newly added************************************************/////////
+    /**
+     * Verifies if the error message for invalid quantity is displayed.
+     *
+     * @param expectedMessage The expected error message text.
+     * @return true if the error message matches the expected text, false otherwise.
+     */
+    public boolean isQuantityErrorMessageDisplayed(String expectedMessage) {
+        return $(QUANTITY_ERROR).isVisible() && $(QUANTITY_ERROR).containsText(expectedMessage);
+    }
+
+        /**
+     * Verifies if the error message for not selecting a size is displayed.
+     *
+     * @return true if the size error message is displayed, false otherwise.
+     */
+    public boolean isSizeSelectionErrorMessageDisplayed() {
+        return $(SIZE_SELECTION_ERROR).isVisible() && 
+            $(SIZE_SELECTION_ERROR).containsText("This is a required field.");
+    }
+
+    public boolean isColorSelectionErrorMessageDisplayed() {
+        return $(COLOR_SELECTION_ERROR).isVisible() &&
+                $(COLOR_SELECTION_ERROR).containsText("This is a required field.");
     }
 }

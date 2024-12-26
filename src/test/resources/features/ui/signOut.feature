@@ -1,3 +1,4 @@
+@UITests
 Feature: Sign Out functionality
   As a logged-in user
   I want to sign out from my account
