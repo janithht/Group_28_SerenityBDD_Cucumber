@@ -1,7 +1,8 @@
+@UITests
 Feature: Broken link detection
 
   @RequiresLogin
-  Scenario: Validate all navigation links for training Page
+  Scenario: Validate all navigation links for gear Page
     Given I am on the Magento "gear" page
     When I click on each navigation link
     Then I should be redirected to the correct page
