@@ -3,11 +3,34 @@ package Steps.api;
 import Steps.factory.RequestFactory;
 import io.restassured.response.Response;
 import net.serenitybdd.rest.SerenityRest;
-import static net.serenitybdd.rest.SerenityRest.given;
+
 //POM - Separates API calls from step definitions
 public class BookAPI {
 
     private static final String BASE_URL = "http://localhost:7081/api/books/";
+
+
+    public Response getBooksByAdmin() {
+        return RequestFactory.adminGetRequest()
+                .when()
+                .get(BASE_URL);
+    }
+    public Response getBooksByUser() {
+        return RequestFactory.userGetRequest()
+                .when()
+                .get(BASE_URL);
+    }
+    public Response getBookByIdAdmin(Integer bookId) {
+        return RequestFactory.adminGetRequest()
+                .when()
+                .get(BASE_URL + bookId);
+    }
+    public Response getBookByIdUser(Integer bookId) {
+        return RequestFactory.userGetRequest()
+                .when()
+                .get(BASE_URL + bookId);
+    }
+
 
     public Response createBook(String title, String author) {
         String payload = String.format("{\"title\": \"%s\", \"author\": \"%s\"}", title, author);

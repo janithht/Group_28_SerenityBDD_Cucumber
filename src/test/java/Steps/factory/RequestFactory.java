@@ -23,6 +23,20 @@ public class RequestFactory {
                 .basic("user", "password")
                 .contentType("application/json");
     }
+    public static RequestSpecification adminGetRequest() {
+        return SerenityRest.given()
+                .auth()
+                .preemptive()
+                .basic("admin", "password");
+    }
+
+    public static RequestSpecification userGetRequest() {
+        return SerenityRest.given()
+                .auth()
+                .preemptive()
+                .basic("user", "password");
+    }
+
     public static void setCurrentRequest(RequestSpecification request) {
         currentRequest = request;
     }
