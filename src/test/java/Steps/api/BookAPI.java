@@ -9,6 +9,29 @@ public class BookAPI {
 
     private static final String BASE_URL = "http://localhost:7081/api/books/";
 
+
+    public Response getBooksByAdmin() {
+        return RequestFactory.adminGetRequest()
+                .when()
+                .get(BASE_URL);
+    }
+    public Response getBooksByUser() {
+        return RequestFactory.userGetRequest()
+                .when()
+                .get(BASE_URL);
+    }
+    public Response getBookByIdAdmin(Integer bookId) {
+        return RequestFactory.adminGetRequest()
+                .when()
+                .get(BASE_URL + bookId);
+    }
+    public Response getBookByIdUser(Integer bookId) {
+        return RequestFactory.userGetRequest()
+                .when()
+                .get(BASE_URL + bookId);
+    }
+
+
     public Response createBook(String title, String author) {
         String payload = String.format("{\"title\": \"%s\", \"author\": \"%s\"}", title, author);
         return RequestFactory.getCurrentRequest()  // This retrieves the current request (admin or user)
