@@ -3,7 +3,7 @@ package Steps.api;
 import Steps.factory.RequestFactory;
 import io.restassured.response.Response;
 import net.serenitybdd.rest.SerenityRest;
-import static net.serenitybdd.rest.SerenityRest.given;
+
 //POM - Separates API calls from step definitions
 public class BookAPI {
 
