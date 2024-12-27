@@ -8,9 +8,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.is;
+
 public class PostAPISteps {
 
-    private final BookAPI bookAPI = new BookAPI();
+    BookAPI bookAPI = BookAPI.getInstance();
     private Response response;
     private String bookTitle;
     private String bookAuthor;

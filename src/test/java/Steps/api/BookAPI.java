@@ -7,6 +7,17 @@ import net.serenitybdd.rest.SerenityRest;
 //POM - Separates API calls from step definitions
 public class BookAPI {
 
+    private static BookAPI instance;
+
+    private BookAPI() {}
+
+    public static BookAPI getInstance() {
+        if(instance == null) {
+            instance = new BookAPI();
+        }
+        return instance;
+    }
+
     private static final String BASE_URL = "http://localhost:7081/api/books/";
 
 
