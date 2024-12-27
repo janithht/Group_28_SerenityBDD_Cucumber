@@ -8,7 +8,7 @@ import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.StringContains.containsString;
 
 public class GetAPISteps {
-    private final BookAPI bookAPI = new BookAPI();
+    BookAPI bookAPI = BookAPI.getInstance();
     private Response response;
 
     @Given("User is authorized as an admin to get books")
