@@ -56,6 +56,12 @@ public class BookAPI {
                 .body(payload)
                 .post(BASE_URL);
     }
+    public Response createBookWithoutAuthor(String title) {
+        String payload = String.format("{\"title\": \"%s\"}", title);
+        return RequestFactory.getCurrentRequest()  // This retrieves the current request (admin or user)
+                .body(payload)
+                .post(BASE_URL);
+    }
 
     public Response getBookById(Integer bookId) {
         return RequestFactory.adminRequest()

@@ -69,6 +69,10 @@ public class PostAPISteps {
         String actualMessage = response.getBody().asString();
         assertThat(actualMessage, is(equalTo(expectedMessage)));
     }
+    @When("User creates a new book with a title {string} and without an author")
+    public void user_creates_a_new_book_with_a_title_and_without_author(String title) {
+        response = bookAPI.createBookWithoutAuthor(title);
+    }
 
     @When("User creates a new book without a title and with author {string}")
     public void user_creates_a_new_book_without_a_title_and_with_author_as_role(String author) {
