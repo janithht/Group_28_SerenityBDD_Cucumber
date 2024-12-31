@@ -15,7 +15,8 @@ Feature: Get books
           |   4     | "Pride and Prejudice"     | "Jane Austen"         |
           |   5     | "The Catcher in the Rye"  | "J.D. Salinger"       |
           |   6     | "The Hobbit"              | "J.R.R. Tolkien"      |
-          |   7     |  null                     | "F. Scott Fitzgerald" |
+          |   7     | "The Lord of the Rings"   | null                  |
+          |   8     |  null                     | "William Shakespeare" |
 
 
   Scenario: Successfully get all books details as a regular user
@@ -32,7 +33,8 @@ Feature: Get books
             |   4     | "Pride and Prejudice"     | "Jane Austen"         |
             |   5     | "The Catcher in the Rye"  | "J.D. Salinger"       |
             |   6     | "The Hobbit"              | "J.R.R. Tolkien"      |
-            |   7     |  null                     | "F. Scott Fitzgerald" |
+            |   7     | "The Lord of the Rings"   | null                  |
+            |   8     |  null                     | "William Shakespeare" |
 
   Scenario: Successfully get a book details as an admin
     Given User is authorized as an admin to get books

@@ -51,7 +51,7 @@ public class GetAPISteps {
     @And("the response should contain list of available books")
     public void the_response_should_contain_a_list_of_available_books() {
         response.then().body("$", not(empty()));
-        response.then().body("size()", equalTo(7));
+        response.then().body("size()", equalTo(8));
         //System.out.println(response.body().asString());
         // Check books in the response
         response.then().body("[0].title", equalTo("To Kill a Mockingbird"));
@@ -66,8 +66,10 @@ public class GetAPISteps {
         response.then().body("[4].author", equalTo("J.D. Salinger"));
         response.then().body("[5].title", equalTo("The Hobbit"));
         response.then().body("[5].author", equalTo("J.R.R. Tolkien"));
-        response.then().body("[6].title", equalTo(null));
-        response.then().body("[6].author", equalTo("F. Scott Fitzgerald"));
+        response.then().body("[6].title", equalTo("The Lord of the Rings"));
+        response.then().body("[6].author", equalTo(null));
+        response.then().body("[7].title", equalTo( null ));
+        response.then().body("[7].author", equalTo("William Shakespeare"));
 
     }
 
