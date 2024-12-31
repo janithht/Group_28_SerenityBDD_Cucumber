@@ -3,7 +3,6 @@ package Steps.APISteps;
 import Steps.api.BookAPI;
 import io.cucumber.java.en.*;
 import io.restassured.response.Response;
-import net.serenitybdd.rest.SerenityRest;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -12,7 +11,7 @@ import static org.hamcrest.core.StringContains.containsString;
 
 public class UpdateAPISteps {
 
-    private final BookAPI bookAPI = new BookAPI();
+    BookAPI bookAPI = BookAPI.getInstance();
     private Response response;
 
     @Given("User is authorized as an admin")
