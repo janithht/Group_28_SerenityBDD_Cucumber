@@ -48,28 +48,37 @@ public class GetAPISteps {
     }
 
 
-    @And("the response should contain list of available books with Id {int}")
-    public void the_response_should_contain_a_list_of_available_books_with_Id(Integer bookId) {
+    @And("the response should contain list of available books")
+    public void the_response_should_contain_a_list_of_available_books() {
         response.then().body("$", not(empty()));
-        response.then().body("size()", greaterThan(0));
+        response.then().body("size()", equalTo(7));
         //System.out.println(response.body().asString());
-
-        // Check second book in the response
+        // Check books in the response
+        response.then().body("[0].title", equalTo("To Kill a Mockingbird"));
+        response.then().body("[0].author", equalTo("Harper Lee"));
         response.then().body("[1].title", equalTo("1984"));
         response.then().body("[1].author", equalTo("George Orwell"));
+        response.then().body("[2].title", equalTo("The Great Gatsby"));
+        response.then().body("[2].author", equalTo("F. Scott Fitzgerald"));
+        response.then().body("[3].title", equalTo("Pride and Prejudice"));
+        response.then().body("[3].author", equalTo("Jane Austen"));
+        response.then().body("[4].title", equalTo("The Catcher in the Rye"));
+        response.then().body("[4].author", equalTo("J.D. Salinger"));
+        response.then().body("[5].title", equalTo("The Hobbit"));
+        response.then().body("[5].author", equalTo("J.R.R. Tolkien"));
+        response.then().body("[6].title", equalTo(null));
+        response.then().body("[6].author", equalTo("F. Scott Fitzgerald"));
+
     }
 
-    @And("the response should contain a book with Id {int}")
-    public void the_response_should_contain_a_book_with_Id(Integer bookId) {
-        response.then().body("size()", greaterThan(0));
-
-        // Check second book in the response
+    @And("the response should contain the details of the book")
+    public void the_response_should_contain_the_details_of_the_book() {
         response.then().body("title", equalTo("1984"));
         response.then().body("author", equalTo("George Orwell"));
     }
 
-    @And("the response should contain an error message \"Book not found\" for the book with Id {int}")
-    public void the_response_should_contain_an_error_message_for_the_book_with_Id(Integer bookId) {
+    @And("the response should contain an error message \"Book not found\"")
+    public void the_response_should_contain_an_error_message() {
         assertThat(response.body().asString(), containsString("Book not found"));
     }
 
