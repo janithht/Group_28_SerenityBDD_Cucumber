@@ -53,6 +53,6 @@ Feature: Create a new book
 
         Examples:
           | author       |
-          | "F. Scott Fitzgerald" |
+          | "William Shakespeare" |
 
 
