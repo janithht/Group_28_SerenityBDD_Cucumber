@@ -8,8 +8,11 @@ Feature: Create a new book
       And the response should include the book ID
       And the book details should match the input title and author
       Examples:
-            | title                    | author             |
+            | title                     | author             |
             | "To Kill a Mockingbird"   | "Harper Lee"       |
+            | "1984"                    | "George Orwell"    |
+            | "The Great Gatsby"        | "F. Scott Fitzgerald" |
+
 
     Scenario: Successfully create a new book as a user
       Given User is authorized as a regular user
@@ -18,8 +21,10 @@ Feature: Create a new book
       And the response should include the book ID
       And the book details should match the input title and author
       Examples:
-            | title       | author          |
-            | "1984"      | "George Orwell" |
+            | title                     | author          |
+            | "Pride and Prejudice"     | "Jane Austen"      |
+            | "The Catcher in the Rye"  | "J.D. Salinger"    |
+            | "The Hobbit"              | "J.R.R. Tolkien" |
 
     Scenario: Admin attempt to create a book with an existing title
         Given User is authorized to create a book as an admin
