@@ -3,7 +3,7 @@ Feature: Create a new book
 
     Scenario: Successfully create a new book as an admin
       Given User is authorized to create a book as an admin
-      When User creates a new book with title <title> and author <author>
+      When Admin creates a new book with title <title> and author <author>
       Then application should return status code 201 for create operation
       And the response should include the book ID
       And the book details should match the input title and author
@@ -28,7 +28,7 @@ Feature: Create a new book
 
     Scenario: Admin attempt to create a book with an existing title
         Given User is authorized to create a book as an admin
-        When User creates a new book with title <title> and author <author>
+        When Admin creates a new book with title <title> and author <author>
         Then application should return status code 208 for already reported operation
         And the response message should be "Book Already Exists"
 

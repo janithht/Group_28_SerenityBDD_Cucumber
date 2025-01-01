@@ -26,7 +26,7 @@ public class PostAPISteps {
         RequestFactory.setCurrentRequest(RequestFactory.userRequest());
     }
 
-    @When("User creates a new book with title {string} and author {string}")
+    @When("Admin creates a new book with title {string} and author {string}")
     public void user_creates_a_new_book_with_title_and_author(String title, String author) {
         this.bookTitle = title;
         this.bookAuthor = author;
