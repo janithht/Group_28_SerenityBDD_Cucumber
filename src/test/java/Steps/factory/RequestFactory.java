@@ -46,4 +46,25 @@ public class RequestFactory {
         }
         return currentRequest;
     }
+
+    public static RequestSpecification adminDeleteRequest() {
+        return SerenityRest.given()
+                .auth()
+                .preemptive()
+                .basic("admin", "password");
+    }
+
+    public static RequestSpecification invalidAdminDeleteRequest() {
+        return SerenityRest.given()
+                .auth()
+                .preemptive()
+                .basic("admin", "wrong-password");
+    }
+
+    public static RequestSpecification userDeleteRequest() {
+        return SerenityRest.given()
+                .auth()
+                .preemptive()
+                .basic("user", "password");
+    }
 }
