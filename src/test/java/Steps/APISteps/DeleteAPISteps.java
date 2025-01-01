@@ -8,7 +8,7 @@ import static org.hamcrest.Matchers.*;
 
 public class DeleteAPISteps {
 
-    private BookAPI bookAPI = BookAPI.getInstance();
+    BookAPI bookAPI = BookAPI.getInstance();
     private Response response;
 
     @Given("the admin user is logged in")
