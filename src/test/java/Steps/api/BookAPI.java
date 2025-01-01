@@ -116,7 +116,7 @@ public class BookAPI {
     }
 
     public Response deleteBookWithID(Integer bookId, boolean correctCredentials) {
-        return (correctCredentials ? RequestFactory.adminDeleteRequest() : RequestFactory.invalidAdminDeleteRequest())
+        return RequestFactory.userDeleteRequest()
                 .when()
                 .delete(BASE_URL + bookId);
     }
