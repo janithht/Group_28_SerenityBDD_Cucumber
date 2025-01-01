@@ -102,4 +102,34 @@ public class BookAPI {
                 .when()
                 .put(BASE_URL + bookId);
     }
+
+    public Response checkBookExists(Integer bookId) {
+        return RequestFactory.adminGetRequest()
+                .when()
+                .get(BASE_URL + bookId);
+    }
+
+    public Response deleteWithoutID() {
+        return RequestFactory.adminDeleteRequest()
+                .when()
+                .delete(BASE_URL);
+    }
+
+    public Response deleteBookWithID(Integer bookId, boolean correctCredentials) {
+        return (correctCredentials ? RequestFactory.adminDeleteRequest() : RequestFactory.invalidAdminDeleteRequest())
+                .when()
+                .delete(BASE_URL + bookId);
+    }
+
+    public Response deleteBookWithIDAsUser(Integer bookId) {
+        return RequestFactory.userDeleteRequest()
+                .when()
+                .delete(BASE_URL + bookId);
+    }
+
+    public Response deleteBookWithInvalidCredentials(Integer bookId) {
+        return RequestFactory.invalidAdminDeleteRequest()
+                .when()
+                .delete(BASE_URL + bookId);
+    }
 }
