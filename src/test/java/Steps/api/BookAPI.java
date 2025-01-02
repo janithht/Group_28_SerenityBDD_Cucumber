@@ -51,13 +51,13 @@ public class BookAPI {
     }
 
     public Response createBookWithoutTitle(String author) {
-        String payload = String.format("{\"author\": \"%s\"}", author);
+        String payload = String.format("{\"title\": \"\", \"author\": \"%s\"}", author);
         return RequestFactory.getCurrentRequest()  // This retrieves the current request (admin or user)
                 .body(payload)
                 .post(BASE_URL);
     }
     public Response createBookWithoutAuthor(String title) {
-        String payload = String.format("{\"title\": \"%s\"}", title);
+        String payload = String.format("{\"title\": \"%s\", \"author\": \"\"}", title);
         return RequestFactory.getCurrentRequest()  // This retrieves the current request (admin or user)
                 .body(payload)
                 .post(BASE_URL);
