@@ -1,6 +1,7 @@
 package Steps.APISteps;
 
 import Steps.api.BookAPI;
+import Steps.factory.RequestFactory;
 import io.cucumber.java.en.*;
 import io.restassured.response.Response;
 
@@ -16,7 +17,7 @@ public class UpdateAPISteps {
 
     @Given("User is authorized as an admin")
     public void user_is_authorized_as_an_admin() {
-        //Handled by Request Factory
+        RequestFactory.setCurrentRequest(RequestFactory.adminRequest());
     }
 
     @And("a book exists with Id {int}")

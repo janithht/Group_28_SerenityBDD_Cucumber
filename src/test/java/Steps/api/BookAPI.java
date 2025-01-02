@@ -22,22 +22,22 @@ public class BookAPI {
 
 
     public Response getBooksByAdmin() {
-        return RequestFactory.adminRequestWithoutContentType()
+        return RequestFactory.adminRequest()
                 .when()
                 .get(BASE_URL);
     }
     public Response getBooksByUser() {
-        return RequestFactory.userRequestWithoutContentType()
+        return RequestFactory.userRequest()
                 .when()
                 .get(BASE_URL);
     }
     public Response getBookByIdAdmin(Integer bookId) {
-        return RequestFactory.adminRequestWithoutContentType()
+        return RequestFactory.adminRequest()
                 .when()
                 .get(BASE_URL + bookId);
     }
     public Response getBookByIdUser(Integer bookId) {
-        return RequestFactory.userRequestWithoutContentType()
+        return RequestFactory.userRequest()
                 .when()
                 .get(BASE_URL + bookId);
     }
@@ -104,31 +104,31 @@ public class BookAPI {
     }
 
     public Response checkBookExists(Integer bookId) {
-        return RequestFactory.adminRequestWithoutContentType()
+        return RequestFactory.adminRequest()
                 .when()
                 .get(BASE_URL + bookId);
     }
 
     public Response deleteWithoutID() {
-        return RequestFactory.adminDeleteRequest()
+        return RequestFactory.adminRequest()
                 .when()
                 .delete(BASE_URL);
     }
 
     public Response deleteBookWithID(Integer bookId, boolean correctCredentials) {
-        return RequestFactory.userDeleteRequest()
+        return RequestFactory.userRequest()
                 .when()
                 .delete(BASE_URL + bookId);
     }
 
     public Response deleteBookWithIDAsUser(Integer bookId) {
-        return RequestFactory.userDeleteRequest()
+        return RequestFactory.userRequest()
                 .when()
                 .delete(BASE_URL + bookId);
     }
 
     public Response deleteBookWithInvalidCredentials(Integer bookId) {
-        return RequestFactory.invalidAdminDeleteRequest()
+        return RequestFactory.invalidAdminRequest()
                 .when()
                 .delete(BASE_URL + bookId);
     }
