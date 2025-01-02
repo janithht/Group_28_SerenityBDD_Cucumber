@@ -23,14 +23,14 @@ public class RequestFactory {
                 .basic("user", "password")
                 .contentType("application/json");
     }
-    public static RequestSpecification adminGetRequest() {
+    public static RequestSpecification adminRequestWithoutContentType() {
         return SerenityRest.given()
                 .auth()
                 .preemptive()
                 .basic("admin", "password");
     }
 
-    public static RequestSpecification userGetRequest() {
+    public static RequestSpecification userRequestWithoutContentType() {
         return SerenityRest.given()
                 .auth()
                 .preemptive()
