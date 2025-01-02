@@ -22,22 +22,22 @@ public class BookAPI {
 
 
     public Response getBooksByAdmin() {
-        return RequestFactory.adminGetRequest()
+        return RequestFactory.adminRequestWithoutContentType()
                 .when()
                 .get(BASE_URL);
     }
     public Response getBooksByUser() {
-        return RequestFactory.userGetRequest()
+        return RequestFactory.userRequestWithoutContentType()
                 .when()
                 .get(BASE_URL);
     }
     public Response getBookByIdAdmin(Integer bookId) {
-        return RequestFactory.adminGetRequest()
+        return RequestFactory.adminRequestWithoutContentType()
                 .when()
                 .get(BASE_URL + bookId);
     }
     public Response getBookByIdUser(Integer bookId) {
-        return RequestFactory.userGetRequest()
+        return RequestFactory.userRequestWithoutContentType()
                 .when()
                 .get(BASE_URL + bookId);
     }
@@ -104,7 +104,7 @@ public class BookAPI {
     }
 
     public Response checkBookExists(Integer bookId) {
-        return RequestFactory.adminGetRequest()
+        return RequestFactory.adminRequestWithoutContentType()
                 .when()
                 .get(BASE_URL + bookId);
     }
