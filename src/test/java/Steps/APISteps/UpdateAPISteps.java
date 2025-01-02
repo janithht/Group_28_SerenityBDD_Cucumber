@@ -22,38 +22,33 @@ public class UpdateAPISteps {
 
     @And("a book exists with Id {int}")
     public void a_book_exists_with_id(Integer bookId) {
-        response = bookAPI.getBookById(bookId);
+        response = bookAPI.getBookByIdAdmin(bookId);
         response.then().statusCode(200);
     }
 
-    @When("User updates the book with ID {int} setting title to {string}, author to {string}")
-    public void user_updates_the_book_with_id_setting_title_to_author_to(Integer bookId, String title, String author) {
+    @When("Admin updates the book with ID {int} setting title to {string}, author to {string}")
+    public void admin_updates_the_book_with_id_setting_title_to_author_to(Integer bookId, String title, String author) {
         response = bookAPI.updateBook(bookId, title, author);
     }
 
-    @When("User sends a PUT request with invalid data including string in an integer field")
-    public void user_send_put_request_with_invalid_data() {
+    @When("Admin sends a PUT request with invalid data including string in an integer field")
+    public void admin_send_put_request_with_invalid_data() {
         response = bookAPI.sendInvalidUpdateRequest("2", "Don Quixote", "Miguel de Cervantes");
     }
 
-    @When("User sends a PUT request with valid update data")
-    public void user_send_put_request_with_valid_update_data() {
+    @When("Admin sends a PUT request with valid update data")
+    public void admin_send_put_request_with_valid_update_data() {
         response = bookAPI.updateBook(101, "Treasure Island", "Robert Louis Stevenson");
     }
 
-    @When("User sends a PUT request missing the author field")
-    public void user_send_put_request_missing_the_author_field() {
+    @When("Admin sends a PUT request missing the author field")
+    public void admin_send_put_request_missing_the_author_field() {
         response = bookAPI.updateBookMissingAuthor(2, "Don Quixote updated title");
     }
 
-    @When("User sends a PUT request without proper authentication credentials")
-    public void user_send_put_request_without_proper_authentication_credentials() {
-        response = bookAPI.updateWithoutAuthentication(1, "Unauthorized Title", "Unauthorized Author");
-    }
-
-    @But("the user sends a PUT request to update the book with ID {int} without proper authentication credentials")
-    public void the_user_sends_a_put_request_to_update_the_book_without_proper_authentication_credentials(Integer bookId) {
-        response = bookAPI.updateWithoutAuthentication(bookId, "Unauthorized Update", "Anonymous");
+    @But("the Admin sends a PUT request to update the book with ID {int} without proper authentication credentials")
+    public void the_admin_sends_a_put_request_to_update_the_book_without_proper_authentication_credentials(Integer bookId) {
+        response = bookAPI.updateWithoutCorrectAuthentication(bookId, "Unauthorized Update", "Anonymous");
     }
 
     @Then("the response status should be {int}")
@@ -63,7 +58,7 @@ public class UpdateAPISteps {
 
     @And("the book with Id {int} should have updated details")
     public void the_book_with_id_should_have_updated_details(Integer bookId) {
-        response = bookAPI.getBookById(bookId);
+        response = bookAPI.getBookByIdAdmin(bookId);
         String updatedAuthor = response.jsonPath().getString("author");
         assertThat(updatedAuthor, is(equalTo("Mark Twain")));
     }

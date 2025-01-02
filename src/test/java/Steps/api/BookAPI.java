@@ -21,50 +21,47 @@ public class BookAPI {
     private static final String BASE_URL = "http://localhost:7081/api/books/";
 
 
-    public Response getBooksByAdmin() {
-        return RequestFactory.adminRequest()
-                .when()
-                .get(BASE_URL);
-    }
-    public Response getBooksByUser() {
-        return RequestFactory.userRequest()
-                .when()
-                .get(BASE_URL);
-    }
-    public Response getBookByIdAdmin(Integer bookId) {
-        return RequestFactory.adminRequest()
-                .when()
-                .get(BASE_URL + bookId);
-    }
-    public Response getBookByIdUser(Integer bookId) {
-        return RequestFactory.userRequest()
-                .when()
-                .get(BASE_URL + bookId);
-    }
-
-
     public Response createBook(String title, String author) {
         String payload = String.format("{\"title\": \"%s\", \"author\": \"%s\"}", title, author);
-        return RequestFactory.getCurrentRequest()  // This retrieves the current request (admin or user)
+        return RequestFactory.getCurrentRequest()
                 .body(payload)
                 .post(BASE_URL);
     }
 
     public Response createBookWithoutTitle(String author) {
         String payload = String.format("{\"title\": \"\", \"author\": \"%s\"}", author);
-        return RequestFactory.getCurrentRequest()  // This retrieves the current request (admin or user)
-                .body(payload)
-                .post(BASE_URL);
-    }
-    public Response createBookWithoutAuthor(String title) {
-        String payload = String.format("{\"title\": \"%s\", \"author\": \"\"}", title);
-        return RequestFactory.getCurrentRequest()  // This retrieves the current request (admin or user)
+        return RequestFactory.getCurrentRequest()
                 .body(payload)
                 .post(BASE_URL);
     }
 
-    public Response getBookById(Integer bookId) {
+    public Response createBookWithoutAuthor(String title) {
+        String payload = String.format("{\"title\": \"%s\", \"author\": \"\"}", title);
+        return RequestFactory.getCurrentRequest()
+                .body(payload)
+                .post(BASE_URL);
+    }
+
+    public Response getBooksByAdmin() {
         return RequestFactory.adminRequest()
+                .when()
+                .get(BASE_URL);
+    }
+
+    public Response getBooksByUser() {
+        return RequestFactory.userRequest()
+                .when()
+                .get(BASE_URL);
+    }
+
+    public Response getBookByIdAdmin(Integer bookId) {
+        return RequestFactory.adminRequest()
+                .when()
+                .get(BASE_URL + bookId);
+    }
+
+    public Response getBookByIdUser(Integer bookId) {
+        return RequestFactory.userRequest()
                 .when()
                 .get(BASE_URL + bookId);
     }
@@ -85,10 +82,10 @@ public class BookAPI {
                 .put(BASE_URL + id);  // Assuming 'id' is the part of the URL that might be wrong
     }
 
-    public Response updateWithoutAuthentication(Integer bookId, String title, String author) {
+    public Response updateWithoutCorrectAuthentication(Integer bookId, String title, String author) {
         SerenityRest.reset();
         String requestBody = String.format("{\"id\": %d, \"title\": \"%s\", \"author\": \"%s\"}", bookId, title, author);
-        return SerenityRest.given()
+        return RequestFactory.invalidAdminRequest()
                 .contentType("application/json")
                 .body(requestBody)
                 .when()
