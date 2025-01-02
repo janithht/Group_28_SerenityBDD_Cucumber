@@ -67,8 +67,8 @@ public class GetAPISteps {
         response.then().body("[5].title", equalTo("The Hobbit"));
         response.then().body("[5].author", equalTo("J.R.R. Tolkien"));
         response.then().body("[6].title", equalTo("The Lord of the Rings"));
-        response.then().body("[6].author", equalTo(null));
-        response.then().body("[7].title", equalTo( null ));
+        response.then().body("[6].author", equalTo(""));
+        response.then().body("[7].title", equalTo( "" ));
         response.then().body("[7].author", equalTo("William Shakespeare"));
 
     }
