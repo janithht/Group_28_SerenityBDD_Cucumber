@@ -29,14 +29,13 @@ public class BookAPI {
     }
 
     public Response createBookWithoutTitle(String author) {
-        String payload = String.format("{\"title\": \"\", \"author\": \"%s\"}", author);
+        String payload = String.format("{\"author\": \"%s\"}", author);
         return RequestFactory.getCurrentRequest()
                 .body(payload)
                 .post(BASE_URL);
     }
-
     public Response createBookWithoutAuthor(String title) {
-        String payload = String.format("{\"title\": \"%s\", \"author\": \"\"}", title);
+        String payload = String.format("{\"title\": \"%s\"}", title);
         return RequestFactory.getCurrentRequest()
                 .body(payload)
                 .post(BASE_URL);
