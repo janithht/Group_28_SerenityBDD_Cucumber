@@ -50,7 +50,7 @@ public class GetAPISteps {
 
     @And("the response should contain list of available books")
     public void the_response_should_contain_a_list_of_available_books() {
-        response.then().body("$", not(empty()));
+
         response.then().body("size()", equalTo(8));
         //System.out.println(response.body().asString());
         // Check books in the response
@@ -67,16 +67,16 @@ public class GetAPISteps {
         response.then().body("[5].title", equalTo("The Hobbit"));
         response.then().body("[5].author", equalTo("J.R.R. Tolkien"));
         response.then().body("[6].title", equalTo("The Lord of the Rings"));
-        response.then().body("[6].author", equalTo(""));
-        response.then().body("[7].title", equalTo( "" ));
+        response.then().body("[6].author", equalTo(null));
+        response.then().body("[7].title", equalTo( null ));
         response.then().body("[7].author", equalTo("William Shakespeare"));
 
     }
 
-    @And("the response should contain the details of the book")
-    public void the_response_should_contain_the_details_of_the_book() {
-        response.then().body("title", equalTo("1984"));
-        response.then().body("author", equalTo("George Orwell"));
+    @And("the response should contain the details of the book with title {string} and author {string}")
+    public void the_response_should_contain_the_details_of_the_book(String title, String author) {
+        response.then().body("title", equalTo(title));
+        response.then().body("author", equalTo(author));
     }
 
     @And("the response should contain an error message \"Book not found\"")

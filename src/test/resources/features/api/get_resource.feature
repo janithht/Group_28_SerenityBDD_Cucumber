@@ -15,8 +15,8 @@ Feature: Get books
           |   4     | "Pride and Prejudice"     | "Jane Austen"         |
           |   5     | "The Catcher in the Rye"  | "J.D. Salinger"       |
           |   6     | "The Hobbit"              | "J.R.R. Tolkien"      |
-          |   7     | "The Lord of the Rings"   | ""                    |
-          |   8     |  ""                       | "William Shakespeare" |
+          |   7     | "The Lord of the Rings"   | null                  |
+          |   8     |  null                     | "William Shakespeare" |
 
 
   Scenario: Successfully get all books details as a regular user
@@ -33,14 +33,14 @@ Feature: Get books
             |   4     | "Pride and Prejudice"     | "Jane Austen"         |
             |   5     | "The Catcher in the Rye"  | "J.D. Salinger"       |
             |   6     | "The Hobbit"              | "J.R.R. Tolkien"      |
-            |   7     | "The Lord of the Rings"   | ""                    |
-            |   8     | ""                        | "William Shakespeare" |
+            |   7     | "The Lord of the Rings"   | null                  |
+            |   8     | null                      | "William Shakespeare" |
 
   Scenario: Successfully get a book details as an admin
     Given User is authorized as an admin to get books
     When the admin user sends a GET request with ID <bookId>
     Then the status of the response should be 200
-    And the response should contain the details of the book
+    And the response should contain the details of the book with title <title> and author <author>
 
       Examples:
           | bookId | title            | author            |
@@ -61,8 +61,7 @@ Feature: Get books
        Given User is authorized as a regular user to get books
        When the regular user sends a GET request with ID <bookId>
        Then the status of the response should be 200
-       And the response should contain the details of the book
-
+       And the response should contain the details of the book with title <title> and author <author>
          Examples:
              | bookId | title            | author            |
              | 2      | "1984"           | "George Orwell"   |
